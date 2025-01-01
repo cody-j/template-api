@@ -1,7 +1,8 @@
 {
   "scripts": {
     "build": "tsc",
-    "start": "tsc-watch --onsuccess \"node dist/index.js\""
+    "express": "tsc-watch --onsuccess \"node dist/interface/express/index.js\"",
+    "serverless": "serverless-offline"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
