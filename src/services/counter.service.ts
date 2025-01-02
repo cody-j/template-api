@@ -1,17 +1,19 @@
+import database from '@/database/sqlite';
 import CounterRepository from '@/repository/counter.repository';
 import { Counter } from '@/models/counter.model';
+
 
 export type CounterInput = {
     id: string;
 }
 
 export default class CounterService {
-    private repository;
+    private counterRepository: CounterRepository;
     constructor () {
-        this.repository = new CounterRepository();
+        this.counterRepository = database.getRepository(CounterRepository);
     }
 
     async countOne (context: CounterInput): Promise<Counter> {    
-        return await this.repository.increment(context.id);
+        return await this.counterRepository.increment(context.id);
     }
 }
