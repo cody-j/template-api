@@ -1,4 +1,4 @@
-class Counter {
+export default class Counter {
     increment (id: string) {
         console.log('Repository: incrementing');
     }
