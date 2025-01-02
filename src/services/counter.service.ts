@@ -1,4 +1,4 @@
-import database from '@/database/sqlite';
+import { db } from '@/database/index';
 import CounterRepository from '@/repository/counter.repository';
 import { Counter } from '@/models/counter.model';
 
@@ -9,8 +9,8 @@ export type CounterInput = {
 
 export default class CounterService {
     private counterRepository: CounterRepository;
-    constructor () {
-        this.counterRepository = database.getRepository(CounterRepository);
+    constructor (counter: CounterRepository) {
+        this.counterRepository = counter;
     }
 
     async countOne (context: CounterInput): Promise<Counter> {    
