@@ -1,8 +1,3 @@
-/**
- * SQLite Implementation
- * 
- */
-
 import sqlite3 from 'sqlite3';
 import { Database as sqlite } from 'sqlite3';
 
@@ -10,14 +5,30 @@ export default class Database {
     private static db: sqlite;
     public static isInitialized: Boolean = false;
     constructor () {}
+
+    private static ddl: string = `
+        create table if not exists counter (
+            id text not null primary key check (
+                id like '%-%-%-%-%' and
+                length(id) = 36
+            )
+            , counter integer default 1
+            , createdAt datetime not null default current_timestamp
+            , updatedAt datetime
+            , deletedAt datetime
+        );
+    `;
     
     static async initialize (): Promise<void> {
         if (Database.isInitialized) return;
         return new Promise((resolve, reject) => {
             Database.db = new sqlite3.Database(':memory:', (err) => {
                 if (err) reject(err);
-                Database.isInitialized = true;
-                resolve();
+                Database.db.run(Database.ddl, (err) => {
+                    if (err) reject(err);
+                    Database.isInitialized = true;
+                    resolve();
+                });
             });
         });
     }
