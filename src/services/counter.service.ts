@@ -11,7 +11,7 @@ export default class CounterService {
         this.repository = new CounterRepository();
     }
 
-    countOne (context: CounterInput): Counter {    
-        return this.repository.increment(context.id);
+    async countOne (context: CounterInput): Promise<Counter> {    
+        return await this.repository.increment(context.id);
     }
 }

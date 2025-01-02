@@ -11,7 +11,7 @@ export default class CounterController {
         return {id: ''};
     }
 
-    count (context: Request): Counter {
-        return this.service.countOne(this.serviceInput('countOne', context));
+    async count (context: Request): Promise<Counter> {
+        return await this.service.countOne(this.serviceInput('countOne', context));
     }
 }

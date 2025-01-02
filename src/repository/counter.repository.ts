@@ -1,7 +1,7 @@
 import { Counter } from '@/models/counter.model';
 
 export default class CounterRepository {
-    increment (id: string): Counter {
+    async increment (id: string): Promise<Counter> {
         console.log('Repository: incrementing');
         return {
             id,
