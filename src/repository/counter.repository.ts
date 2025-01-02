@@ -1,9 +1,8 @@
 import { Counter } from '@/models/counter.model';
-import { Repository } from '@/database/sqlite';
+import db from '@/database/index';
 
-export default class CounterRepository extends Repository {
+export default class CounterRepository {
     async increment (id: string): Promise<Counter> {
-        this.db
         return {id: '', counter: 1}
     }
 }

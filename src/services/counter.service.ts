@@ -1,4 +1,3 @@
-import { db } from '@/database/index';
 import CounterRepository from '@/repository/counter.repository';
 import { Counter } from '@/models/counter.model';
 

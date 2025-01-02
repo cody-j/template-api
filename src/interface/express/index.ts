@@ -1,10 +1,9 @@
 import 'module-alias/register'
 import app from './server';
-import Database from '@/database/sqlite';
-import { db } from '@/database/index';
+import db from '@/database/index';
 
 async function main () {
-  await db.initialize('./data');
+  await db.initialize();
   
   process.on('uncaughtException', (error) => {
     console.error('Uncaught Exception:', error);

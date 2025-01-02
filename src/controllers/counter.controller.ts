@@ -1,4 +1,3 @@
-import {db} from '@/database/index';
 import { Request, Response } from 'express';
 import CounterService, { CounterInput } from '@/services/counter.service';
 import { Counter } from '@/models/counter.model';
