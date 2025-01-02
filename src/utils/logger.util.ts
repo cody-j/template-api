@@ -30,18 +30,11 @@ import fs from 'fs';
 //     }));
 // }
 
-const logFormat = process.env.NODE_ENV === 'production'
-    ? 'dev'
-    : ':remote-addr - :user-id [:date[iso]] ":method :url HTTP/:http-version" :status :res-body-size :response-time[digits]ms ":referrer" ":user-agent"';
 
-const options = process.env.NODE_ENV === 'production'
-    ? {
-        stream: fs.createWriteStream('access.log', { flags: 'a' }),
-        skip: (req: Express.Request, res: Express.Response) => res.statusCode < 400,  // Only log errors
-    }
-    : { skip: (req: Express.Request) => req.path === '/health' }; 
-    
-export default morgan(logFormat, options);
+const logger = morgan('combined', {
+    skip: function (req, res) { return res.statusCode < 400 }
+});
 
+export default logger;
 // For API routes, add more detailed logging
 

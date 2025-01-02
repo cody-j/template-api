@@ -1,14 +1,14 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-import morgan from 'morgan';
+import logger from '@/utils/logger.util';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-
+app.use(logger);
 app.use(helmet({
     noSniff: true,
     crossOriginResourcePolicy: {
