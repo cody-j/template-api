@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import logger from '@/utils/logger.util';
+import counter from './counter.interface';
 
 const app = express();
 
@@ -17,9 +18,10 @@ app.use(helmet({
     hsts: false, // strict https off in development
 }));
 
+app.use('/counter', counter);
+
 app.get('/health', (req, res) => {
     res.status(200).json('ok');
 });
-// app.use('/api', routes);
 
 export default app;

@@ -1,16 +1,17 @@
 import CounterRepository from '@/repository/counter.repository';
+import { Counter } from '@/models/counter.model';
 
-type CounterInput = {
+export type CounterInput = {
     id: string;
 }
 
-export default class Counter {
+export default class CounterService {
     private repository;
     constructor () {
         this.repository = new CounterRepository();
     }
 
-    countOne (context: CounterInput) {    
-        this.repository.increment(context.id);
+    countOne (context: CounterInput): Counter {    
+        return this.repository.increment(context.id);
     }
 }

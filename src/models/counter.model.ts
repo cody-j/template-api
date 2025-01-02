@@ -5,4 +5,5 @@ const Counter = z.object({
     counter: z.number().int(),
 });
 
-type Counter = z.infer<typeof Counter>;
+export type Counter = z.infer<typeof Counter>;
+
