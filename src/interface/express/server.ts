@@ -5,6 +5,7 @@ import logger from '@/utils/logger.util';
 import { Controller } from '@/controllers';
 import CounterController from '@/controllers/counter.controller';
 import Database from '@/database';
+import { errorHandler } from '@/middleware/error.middleware';
 
 
 class AppBuilder {
@@ -17,6 +18,13 @@ class AppBuilder {
 
     build (): Application {
         const app = express();
+        for (let { path, controller } of this.controllers) {
+            app.use(path, controller.registerRoutes(Router()));
+        }
+
+        app.get('/health', (req, res) => {
+            res.status(200).json('ok');
+        });
 
         app.use(cors());
         app.use(express.json());
@@ -27,18 +35,9 @@ class AppBuilder {
             crossOriginResourcePolicy: {
                 policy: 'same-site',
             },
-            hsts: false, // strict https off in development
-        }));
-
-        for (let { path, controller } of this.controllers) {
-            // Register Routers for each Controller and initialize their routes
-            app.use(path, controller.registerRoutes(Router()));
-        }
-
-        app.get('/health', (req, res) => {
-            res.status(200).json('ok');
-        });
-
+            hsts: false,
+        }));        
+        app.use(errorHandler);
         return app;
     }
 }
