@@ -1,7 +1,7 @@
 {
   "scripts": {
     "build": "tsc",
-    "express": "tsc-watch --onsuccess \"node dist/interface/express/index.js\"",
+    "start": "tsc-watch --onsuccess \"node dist/interface/express/index.js\"",
     "serverless": "serverless-offline"
   },
   "devDependencies": {
@@ -18,7 +18,9 @@
     "express": "^4.21.2",
     "helmet": "^8.0.0",
     "module-alias": "^2.2.3",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "sqlite3": "^5.1.7",
+    "zod": "^3.24.1"
   },
   "_moduleAliases": {
     "@": "dist"
