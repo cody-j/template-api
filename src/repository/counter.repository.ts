@@ -1,10 +1,9 @@
 import { Counter } from '@/models/counter.model';
-import db from '@/database/index';
+import Database, { Repository } from '@/database';
 
-export default class CounterRepository {
+export default class CounterRepository extends Repository {
     async increment (id: string): Promise<Counter> {
-        console.log('inserting with id: ', id)
-        const results = await db.get<Counter>(`
+        const results = await this.db.get<Counter>(`
             insert into
                 counter (id, counter)
                 values (?, 1)
@@ -17,7 +16,7 @@ export default class CounterRepository {
     }
 
     async getAll (): Promise<Counter[]> {
-        const results = await db.query<Counter>(`
+        const results = await this.db.query<Counter>(`
             select * from counter;
         `);
         if (!results) throw new Error();

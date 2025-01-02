@@ -43,6 +43,7 @@ class AppBuilder {
 
 export function createApp (db: Database) {
     const count = new CounterController(db);
+    
     return new AppBuilder()
         .registerController('/count', count)
         .build();

@@ -1,8 +1,9 @@
 import 'module-alias/register'
 import { createApp } from './server';
-import db from '@/database/index';
+import Database from '@/database/index';
 
 async function main () {
+  const db = new Database();
   await db.initialize();
   const app = createApp(db);
   process.on('uncaughtException', (error) => {
