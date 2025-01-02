@@ -1,10 +1,10 @@
 import 'module-alias/register'
-import app from './server';
+import { createApp } from './server';
 import db from '@/database/index';
 
 async function main () {
   await db.initialize();
-  
+  const app = createApp(db);
   process.on('uncaughtException', (error) => {
     console.error('Uncaught Exception:', error);
     process.exit(1);
