@@ -8,6 +8,7 @@ export default class CounterController {
     constructor (service: any) {
         this.service = service
     }
+
     private serviceInput (operation: string, context: Request): CounterInput {
         return {id: ''};
     }

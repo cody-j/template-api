@@ -33,7 +33,7 @@ export default class Database {
         });
     }
 
-    async query<T>(sql: string, params: unknown[] = []): Promise<T[]> {
+    static async query<T>(sql: string, params: unknown[] = []): Promise<T[]> {
         if (!Database.isInitialized) throw new Error('Database down!');
         return new Promise((resolve, reject) => {
             Database.db.all(sql, params, (err, rows) => {
@@ -43,7 +43,7 @@ export default class Database {
         });
     }
 
-    async run(sql: string, params: unknown[] = []): Promise<void> {
+    static async run(sql: string, params: unknown[] = []): Promise<void> {
         if (!Database.isInitialized) throw new Error('Database down!');
         return new Promise((resolve, reject) => {
             Database.db.run(sql, params, (err) => {
@@ -53,7 +53,7 @@ export default class Database {
         });
     }
 
-    async get<T>(sql: string, params: unknown[] = []): Promise<T | undefined> {
+    static async get<T>(sql: string, params: unknown[] = []): Promise<T | undefined> {
         if (!Database.isInitialized) throw new Error('Database down!');
         return new Promise((resolve, reject) => {
             Database.db.get(sql, params, (err, row) => {
