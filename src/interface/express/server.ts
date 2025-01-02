@@ -1,8 +1,7 @@
-import express, { Application } from 'express';
+import express, { Application, Router } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import logger from '@/utils/logger.util';
-import counter from './counter.interface';
 import { Controller } from '@/controllers';
 import CounterController from '@/controllers/counter.controller';
 import Database from '@/database';
@@ -31,7 +30,10 @@ class AppBuilder {
             hsts: false, // strict https off in development
         }));
 
-        app.use('/counter', counter);
+        for (let { path, controller } of this.controllers) {
+            // Register Routers for each Controller and initialize their routes
+            app.use(path, controller.registerRoutes(Router()));
+        }
 
         app.get('/health', (req, res) => {
             res.status(200).json('ok');
@@ -45,6 +47,6 @@ export function createApp (db: Database) {
     const count = new CounterController(db);
     
     return new AppBuilder()
-        .registerController('/count', count)
+        .registerController('/counter', count)
         .build();
 };
