@@ -3,6 +3,7 @@ import db from '@/database/index';
 
 export default class CounterRepository {
     async increment (id: string): Promise<Counter> {
+        console.log('inserting with id: ', id)
         const results = await db.get<Counter>(`
             insert into
                 counter (id, counter)
