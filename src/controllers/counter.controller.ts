@@ -14,19 +14,14 @@ class CounterController implements Controller {
         this.service = new CounterService(repo);
     }
 
+    count = async (req: Request): Promise<Counter>  => {
+        return await this.service.countOne({ id: req.params.id });
+    }
+
     registerRoutes (router: Router) {
-        const handler = routeHandler<Counter>(this.count)
-        router.post('/increment/:id', handler);
+        router.post('/increment/:id', routeHandler<Counter>(this.count));   
         return router;
     };
-
-    private serviceInput (operation: string, context: Request): CounterInput {
-        return {id: ''};
-    }
-
-    count = async (context: Request): Promise<Counter>  => {
-        return await this.service.countOne(this.serviceInput('countOne', context));
-    }
 }
 
 export default CounterController;
