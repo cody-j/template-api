@@ -1,7 +1,5 @@
 import morgan from 'morgan';
 
-const logger = morgan('combined', {
-    skip: function (req, res) { return res.statusCode < 400 }
-});
+const logger = morgan(':method :url :status :res[content-length] - :response-time ms');
 
 export default logger;

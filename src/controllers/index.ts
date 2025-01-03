@@ -14,7 +14,6 @@ export function routeHandler<T> (controllerFn: (req: Request) => Promise<T>): (r
                 return res.status(200).json(results);
             }
         } catch (err) {
-            console.error(err)
             next(err);
         }
     }

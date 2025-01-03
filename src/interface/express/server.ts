@@ -18,14 +18,6 @@ class AppBuilder {
 
     build (): Application {
         const app = express();
-        for (let { path, controller } of this.controllers) {
-            app.use(path, controller.registerRoutes(Router()));
-        }
-
-        app.get('/health', (req, res) => {
-            res.status(200).json('ok');
-        });
-
         app.use(cors());
         app.use(express.json());
         app.use(express.urlencoded({extended:true}));
@@ -37,6 +29,14 @@ class AppBuilder {
             },
             hsts: false,
         }));        
+
+        for (let { path, controller } of this.controllers) {
+            app.use(path, controller.registerRoutes(Router()));
+        }
+
+        app.get('/health', (req, res) => {
+            res.status(200).json('ok');
+        });
         app.use(errorHandler);
         return app;
     }

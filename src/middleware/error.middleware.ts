@@ -10,6 +10,7 @@ export function errorHandler (err: Error, req: Request, res: Response, next: Nex
         next(err);
     }
 
+    
     if (err instanceof DBError) {
         res.status(err.statusCode).json(err.message);
         return;
